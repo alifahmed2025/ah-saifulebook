@@ -10,56 +10,57 @@ export default function PopularStories() {
 
   const categories = ["All", "Fiction", "Romance", "Mystery", "Historical", "Short Stories"]
 
+  // 🔹 STORIES WITH PDF PATH
   const stories = [
     {
       id: 1,
-      title: "The River's Tale",
+      title: "Zertifikat B1 neu-Schreiben.pdf",
       author: "Ahmed Hossain",
       readTime: "45 min",
-      description: "A beautiful tale of life along the Padma river. This story captures the essence of rural Bengal and its people.",
+      description:
+        "A beautiful tale of life along the Padma river. This story captures the essence of rural Bengal and its people.",
       bgColor: "bg-blue-500",
       textColor: "text-white",
-      link: "https://www.rokomari.com/book/50825/desh-er-golpo-2003-2005" // এখানে লিঙ্ক বসানো হয়েছে
+      pdf: "/stories/Zertifikat B1 neu-Schreiben.pdf",
     },
     {
       id: 2,
-      title: "Shadows of Dhaka",
+      title: "Aspekte B2. Wortliste",
       author: "Fatema Begum",
       readTime: "1 hr 20 min",
-      description: "A gripping mystery set in the bustling streets of old Dhaka, where secrets lurk in every corner.",
+      description:
+        "A gripping mystery set in the bustling streets of old Dhaka, where secrets lurk in every corner.",
       bgColor: "bg-red-500",
       textColor: "text-white",
-      link: "https://www.rokomari.com/book/464544/shadow-of-love"
+      pdf: "/stories/Aspekte B2. Wortliste.pdf",
     },
     {
       id: 3,
-      title: "Monsoon (Hardcover)",
+      title: "Netzwek Neu B1 Losungen - K7-12",
       author: "Rahim Khan",
       readTime: "30 min",
-      description: "A heartwarming romance that blossoms during the rainy season in the tea gardens of Sylhet.",
+      description:
+        "A heartwarming romance that blossoms during the rainy season in the tea gardens of Sylhet.",
       bgColor: "bg-green-500",
       textColor: "text-white",
-      link: "https://www.rokomari.com/book/342524/monsoon"
+      pdf: "/stories/Netzwek Neu B1 Losungen - K7-12.pdf",
     },
     {
       id: 4,
-      title: "The Last Poet",
+      title: "Short Stories in German for Beginners Book (1)",
       author: "Nasir Ahmed",
       readTime: "55 min",
-      description: "An emotional journey through the life of Bengal's forgotten poets and their timeless verses.",
+      description:
+        "An emotional journey through the life of Bengal's forgotten poets and their timeless verses.",
       bgColor: "bg-purple-500",
       textColor: "text-white",
-      link: "https://www.rokomari.com/book/456200/the-last-poet-of-kashmir"
+      pdf: "/stories/Short Stories in German for Beginners Book (1).pdf",
     },
   ]
 
-  // লিঙ্ক হ্যান্ডেল করার ফাংশন
-  const handleReadOnline = (url) => {
-    if (url && url !== "#") {
-      window.open(url, "_blank");
-    } else {
-      alert("গল্পটি পড়ার লিঙ্ক এখনো যুক্ত করা হয়নি।");
-    }
+  // 🔹 PDF OPEN FUNCTION
+  const handleReadOnline = (pdfPath: string) => {
+    window.open(pdfPath, "_blank")
   }
 
   return (
@@ -79,11 +80,6 @@ export default function PopularStories() {
             <Button
               key={category}
               variant={activeCategory === category ? "default" : "outline"}
-              className={`px-3 sm:px-6 py-2 rounded-full transition-all duration-200 text-sm sm:text-base ${
-                activeCategory === category
-                  ? "bg-accent text-accent-foreground hover:bg-accent/90"
-                  : "text-muted-foreground hover:text-foreground hover:border-accent"
-              }`}
               onClick={() => setActiveCategory(category)}
             >
               {category}
@@ -102,40 +98,31 @@ export default function PopularStories() {
               </div>
 
               <CardContent className="p-4 sm:p-6">
-                <h3 className="text-lg sm:text-xl font-bold text-foreground mb-2 sm:mb-3 font-mono leading-tight">
+                <h3 className="text-lg sm:text-xl font-bold mb-2 font-mono">
                   {story.title}
                 </h3>
 
-                <div className="flex items-center justify-between text-xs sm:text-sm text-muted-foreground mb-3 sm:mb-4">
+                <div className="flex items-center justify-between text-sm text-muted-foreground mb-4">
                   <div className="flex items-center">
-                    <User className="h-3 w-3 sm:h-4 sm:w-4 mr-1" />
-                    <span className="truncate">{story.author}</span>
+                    <User className="h-4 w-4 mr-1" />
+                    {story.author}
                   </div>
                   <div className="flex items-center">
-                    <Clock className="h-3 w-3 sm:h-4 sm:w-4 mr-1" />
-                    <span>{story.readTime}</span>
+                    <Clock className="h-4 w-4 mr-1" />
+                    {story.readTime}
                   </div>
                 </div>
 
-                <p className="text-muted-foreground text-xs sm:text-sm leading-relaxed mb-4 sm:mb-6 line-clamp-3">
+                <p className="text-sm text-muted-foreground mb-6 line-clamp-3">
                   {story.description}
                 </p>
 
-                <div className="flex gap-2">
-                  <Button 
-                    className="flex-1 bg-accent text-accent-foreground hover:bg-accent/90 text-sm sm:text-base h-9 sm:h-10"
-                    onClick={() => handleReadOnline(story.link)} // ক্লিক ইভেন্ট অ্যাড করা হয়েছে
-                  >
-                    Read Online
-                  </Button>
-                  <Button
-                    variant="outline"
-                    size="icon"
-                    className="hover:bg-accent hover:text-accent-foreground bg-transparent h-9 w-9 sm:h-10 sm:w-10"
-                  >
-                    <Download className="h-3 w-3 sm:h-4 sm:w-4" />
-                  </Button>
-                </div>
+                <Button
+                  className="w-full bg-accent text-accent-foreground"
+                  onClick={() => handleReadOnline(story.pdf)}
+                >
+                  Read Online (PDF)
+                </Button>
               </CardContent>
             </Card>
           ))}
